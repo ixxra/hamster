@@ -1,0 +1,30 @@
+<h2><i class="fi-music"></i> Music folder</h2>
+<section>
+    {{#each model.dirs}}
+        <div class="row">
+            <div class="small-1 columns">
+                <i class="fi-folder"></i>
+            </div>
+            <div class="small-11 columns">
+                {{#link-to 'track' path}}{{name}}{{/link-to}}
+            </div>
+            <hr>
+        </div>
+    {{/each}}
+
+</section>
+<section>
+    {{#each model.files}}
+        <div class="row">
+            <div class="small-1 columns">
+                <i class="fi-plus"></i>
+            </div>
+            <div class="small-11 columns">
+                <a href="{{path}}">{{name}}</a>
+            </div>
+            <hr>
+        </div>
+    {{/each}}
+
+</section>
+{{outlet}}
