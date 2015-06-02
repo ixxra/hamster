@@ -5,7 +5,7 @@ export default Ember.Route.extend({
     if (!params.track_path){
       return Ember.$.getJSON('/api/tracks');
     } else {
-      return Ember.$.getJSON(params.track_path);
+      return Ember.$.getJSON('/api/tracks/' + params.track_path);
     }
   }
 });

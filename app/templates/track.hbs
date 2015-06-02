@@ -6,7 +6,7 @@
                 <i class="fi-folder"></i>
             </div>
             <div class="small-11 columns">
-                {{#link-to 'track' path}}{{name}}{{/link-to}}
+                {{#link-to 'track' id}}{{name}}{{/link-to}}
             </div>
             <hr>
         </div>
@@ -17,10 +17,10 @@
     {{#each model.files}}
         <div class="row">
             <div class="small-1 columns">
-                <i class="fi-plus"></i>
+                <a {{action "add" this}}><i class="fi-plus"></i></a>
             </div>
             <div class="small-11 columns">
-                <a href="{{path}}">{{name}}</a>
+                {{name}}
             </div>
             <hr>
         </div>

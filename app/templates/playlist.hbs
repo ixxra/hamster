@@ -1,0 +1,12 @@
+<h2>Playlist</h2>
+
+{{#each playlist}}
+  <div class="row">
+    <div class="small-12 columns">
+        <a {{action "play" this}}>{{name}}</a>
+    </div>
+    <hr>
+  </div>
+{{/each}}
+
+{{outlet}}

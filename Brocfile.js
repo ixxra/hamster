@@ -26,4 +26,6 @@ app.import('bower_components/foundation-icon-fonts/foundation-icons.ttf', {
 });
 app.import('bower_components/foundation-icon-fonts/foundation-icons.css');
 
+app.import('bower_components/jplayer/dist/jplayer/jquery.jplayer.js');
+
 module.exports = app.toTree();

@@ -11,10 +11,24 @@ module.exports = function(app) {
   const ApiMedia = '/api/media';
   const ApiTrack = '/api/tracks';
 
-  function encodePath(p){
+  function pathToMedia(p){
     return path.join(ApiMedia, q.escape(p));
   };
 
+  /**
+  ** readDir (dirPath, callback)
+  ** reads dir with path relative to the Music folder.
+  **
+  ** Arguments:
+  **
+  ** @dirPath Path to dir, relative to Music folder.
+  ** @callback callback function. Should be of the form
+  **
+  ** function callback(error, contents);
+  **
+  ** where contents is a json object of the form {dirs: [], files: []} or
+  ** null if there is any error.
+  **/
   function readDir(dirPath, callback){
     var dirs = [];
     var files = [];
@@ -37,7 +51,11 @@ module.exports = function(app) {
               path: encodeURI(path.join(dirPath,f))
             });
           } else if (stats.isFile()) {
-            files.push({name: f, path: q.escape(path.join(dirPath,f))});
+            files.push({
+              id: q.escape(path.join(dirPath, f)),
+              name: f,
+              multimedia: pathToMedia(path.join(dirPath,f))
+            });
           }
 
           total++;
@@ -54,34 +72,12 @@ module.exports = function(app) {
 
 
   tracksRouter.get('/', function(req, res) {
-    var dirs = [];
-    var files = [];
-
-    fs.readdir(MusicDir, function(err, content){
-      var total = 0;
-
-      content.forEach(function (f) {
-        var fpath = path.join(MusicDir, f);
-
-        fs.stat(fpath, function (err, stats){
-          if (stats.isDirectory()) {
-            dirs.push({
-              id: q.escape(f),
-              name: f,
-              path: encodeURI(path.join(ApiTrack, f))});
-          } else if (stats.isFile()) {
-            files.push({name: f, path: q.escape(f)});
-          }
-
-          total++;
-          if (total >= content.length){
-            res.send({
-              dirs: dirs,
-              files: files
-            });
-          }
-        });
-      });
+    readDir('/', function callback(err, content){
+      if (err){
+        res.status(404).end();
+      } else{
+        res.send(content);
+      }
     });
   });
 
@@ -90,12 +86,12 @@ module.exports = function(app) {
   });
 
   tracksRouter.get('/:dir_path', function(req, res) {
-    var dirPath = path.join(ApiTrack, q.unescape(path.normalize(req.params.dir_path)));
-    readDir(dirPath, function cb(err, tree){
+    var dirPath = q.unescape(path.normalize(req.params.dir_path));
+    readDir(dirPath, function callback(err, content){
       if (err){
         res.status(404).end();
       } else {
-        res.send(tree);
+        res.send(content);
       }
     });
   });
