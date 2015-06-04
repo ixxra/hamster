@@ -1,9 +1,14 @@
 <h2>Playlist</h2>
 
-{{#each playlist}}
+{{#each item in playlist}}
   <div class="row">
-    <div class="small-12 columns">
-        <a {{action "play" this}}>{{name}}</a>
+    <div class="small-1 column">
+      {{#if item.isPlaying}}
+        <i class="fi-music"></i>
+      {{/if}}
+    </div>
+    <div class="small-11 columns">
+        <a {{action "play" item}}>{{item.name}}</a>
     </div>
     <hr>
   </div>

@@ -1,9 +1,19 @@
 <section id="jp_container_1" class="jplayer">
-    <button id="play" class="btn btn-default btn-sm jp-play"><i class="fi-play"></i></button>
-    <button id="play" class="btn btn-default btn-sm jp-pause"><i class="fi-pause"></i></button>
-    <button class="btn btn-default btn-sm"><i class="fi-previous"></i></button>
-    <button class="btn btn-default btn-sm jp-stop"><i class="fi-stop"></i></button>
-    <button class="btn btn-default btn-sm"><i class="fi-next"></i></button>
+    <button id="play" class="btn btn-default btn-sm jp-play">
+      <i class="fi-play"></i>
+    </button>
+    <button id="play" class="btn btn-default btn-sm jp-pause">
+      <i class="fi-pause"></i>
+    </button>
+    <button class="btn btn-default btn-sm" {{action "prev"}}>
+      <i class="fi-previous"></i>
+    </button>
+    <button class="btn btn-default btn-sm jp-stop">
+      <i class="fi-stop"></i>
+    </button>
+    <button class="btn btn-default btn-sm" {{action "next"}}>
+      <i class="fi-next"></i>
+    </button>
     <span class="jp-title"></span> |
     <span class="jp-current-time"></span> / <span class="jp-duration"></span>
     <div id="jplayer-slot" class="jp-player">

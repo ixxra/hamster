@@ -1,12 +1,12 @@
 <h2><i class="fi-music"></i> Music folder</h2>
 <section>
-    {{#each model.dirs}}
+    {{#each dir in model.dirs}}
         <div class="row">
             <div class="small-1 columns">
                 <i class="fi-folder"></i>
             </div>
             <div class="small-11 columns">
-                {{#link-to 'track' id}}{{name}}{{/link-to}}
+                {{#link-to 'track' dir.id}}{{dir.name}}{{/link-to}}
             </div>
             <hr>
         </div>
@@ -14,13 +14,13 @@
 
 </section>
 <section>
-    {{#each model.files}}
+    {{#each file in model.files}}
         <div class="row">
             <div class="small-1 columns">
-                <a {{action "add" this}}><i class="fi-plus"></i></a>
+                <a {{action "add" file}}><i class="fi-plus"></i></a>
             </div>
             <div class="small-11 columns">
-                {{name}}
+                {{file.name}}
             </div>
             <hr>
         </div>
